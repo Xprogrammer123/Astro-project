@@ -9,8 +9,6 @@ html {
 }
 
 body {
-  background-color: #ffffff; /* bg-white */
-  color: #0f172a; /* text-slate-900 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
