@@ -1,0 +1,123 @@
+---
+
+---
+
+<header class="sticky top-0 z-50 bg-gray-950 border-b border-gray-800">
+  <div class="flex items-center justify-between px-4 py-2">
+    <!-- Logo and Menu -->
+    <div class="flex items-center gap-4">
+      <button
+        id="menu-btn"
+        class="p-2 hover:bg-gray-900 rounded-full transition-colors"
+      >
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+      <div class="text-white font-bold text-xl flex items-center gap-1">
+        <svg
+          class="w-6 h-6 text-red-600"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+          ></path>
+        </svg>
+        Tube
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="flex-1 max-w-md mx-4">
+      <div
+        class="flex items-center bg-gray-900 rounded-full px-4 py-2 border border-gray-700 focus-within:border-blue-500"
+      >
+        <input
+          type="text"
+          placeholder="Search"
+          class="bg-transparent text-white outline-none w-full placeholder-gray-500"
+        />
+        <button class="p-2 hover:bg-gray-800 rounded-full transition-colors">
+          <svg
+            class="w-5 h-5 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-2">
+      <button
+        class="p-2 hover:bg-gray-900 rounded-full transition-colors"
+        title="Create"
+      >
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"></path>
+        </svg>
+      </button>
+      <button
+        class="p-2 hover:bg-gray-900 rounded-full transition-colors"
+        title="Notifications"
+      >
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          ></path>
+        </svg>
+      </button>
+      <button
+        class="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center hover:ring-2 hover:ring-gray-600 transition-all"
+      >
+        <span class="text-xs text-white font-bold">Y</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuBtn = document.getElementById("menu-btn");
+  const sidebar = document.getElementById("sidebar");
+
+  if (menuBtn && sidebar) {
+    menuBtn.addEventListener("click", () => {
+      sidebar?.classList.toggle("hidden");
+      sidebar?.classList.toggle("max-md:fixed");
+    });
+  }
+</script>

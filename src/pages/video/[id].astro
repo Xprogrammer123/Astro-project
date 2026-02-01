@@ -1,0 +1,233 @@
+---
+import YouTubeLayout from "../layouts/YouTubeLayout.astro";
+import { mockVideos, mockComments } from "../data/videos";
+
+const { id } = Astro.params;
+const video = mockVideos.find((v) => v.id === id);
+
+if (!video) {
+  return Astro.redirect("/404");
+}
+
+const relatedVideos = mockVideos.filter((v) => v.id !== id).slice(0, 8);
+---
+
+<YouTubeLayout title={`${video.title} - Tube`}>
+  <div class="max-w-7xl mx-auto p-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Main Video Player and Details -->
+      <div class="lg:col-span-2">
+        <!-- Video Player -->
+        <div
+          class="relative w-full bg-black rounded-lg overflow-hidden aspect-video mb-4"
+        >
+          <img
+            src={video.thumbnail}
+            alt={video.title}
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 flex items-center justify-center hover:bg-black hover:bg-opacity-30 transition-all cursor-pointer"
+          >
+            <svg
+              class="w-20 h-20 text-white opacity-80 hover:opacity-100"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Video Info -->
+        <div class="mb-4">
+          <h1 class="text-2xl font-bold mb-2">{video.title}</h1>
+
+          <div class="flex items-center justify-between mb-4">
+            <!-- Channel Info -->
+            <div class="flex items-center gap-3">
+              <img
+                src={video.channel.avatar}
+                alt={video.channel.name}
+                class="w-12 h-12 rounded-full"
+              />
+              <div>
+                <p class="font-semibold text-white flex items-center gap-1">
+                  {video.channel.name}
+                  {
+                    video.channel.verified && (
+                      <svg
+                        class="w-4 h-4 text-blue-500"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                      </svg>
+                    )
+                  }
+                </p>
+                <p class="text-sm text-gray-400">
+                  {video.channel.subscribers} subscribers
+                </p>
+              </div>
+              <button
+                class="ml-4 px-4 py-2 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors"
+              >
+                Subscribe
+              </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2">
+              <button
+                class="flex items-center gap-2 px-4 py-2 bg-gray-900 hover:bg-gray-800 rounded-full transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.82-.44-1.06L9.83 1 3.59 7.24C3.25 7.57 3 8.1 3 8.7v12c0 1.1.9 2 2 2h12c.83 0 1.54-.5 1.84-1.23l5.02-8.06c.09-.15.16-.34.16-.54v-3z"
+                  ></path>
+                </svg>
+                {video.likes}
+              </button>
+              <button
+                class="flex items-center gap-2 px-4 py-2 bg-gray-900 hover:bg-gray-800 rounded-full transition-colors"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  ></path>
+                </svg>
+                Share
+              </button>
+              <button
+                class="px-4 py-2 bg-gray-900 hover:bg-gray-800 rounded-full transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-gray-900 p-4 rounded-lg mb-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-sm text-gray-400">{video.views} views</span>
+              <span class="text-sm text-gray-400">•</span>
+              <span class="text-sm text-gray-400">{video.uploadedAt}</span>
+            </div>
+            <p class="text-sm text-gray-200">{video.description}</p>
+          </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="mb-8">
+          <h2 class="text-xl font-bold mb-4">Comments</h2>
+
+          <!-- Comment Input -->
+          <div class="flex gap-4 mb-6">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop"
+              alt="Your avatar"
+              class="w-10 h-10 rounded-full flex-shrink-0"
+            />
+            <div class="flex-1">
+              <input
+                type="text"
+                placeholder="Add a comment..."
+                class="w-full bg-transparent border-b border-gray-700 focus:border-blue-500 outline-none py-2 text-sm"
+              />
+            </div>
+          </div>
+
+          <!-- Comments List -->
+          <div class="space-y-4">
+            {
+              mockComments.map((comment) => (
+                <div class="flex gap-3">
+                  <img
+                    src={comment.avatar}
+                    alt={comment.author}
+                    class="w-8 h-8 rounded-full flex-shrink-0"
+                  />
+                  <div class="flex-1">
+                    <div class="flex items-center gap-2">
+                      <span class="font-semibold text-sm">
+                        {comment.author}
+                      </span>
+                      <span class="text-xs text-gray-400">
+                        {comment.timestamp}
+                      </span>
+                    </div>
+                    <p class="text-sm text-gray-200 mt-1">{comment.text}</p>
+                    <div class="flex items-center gap-4 mt-2">
+                      <button class="flex items-center gap-1 text-xs text-gray-400 hover:text-white transition-colors">
+                        <svg
+                          class="w-4 h-4"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.82-.44-1.06L9.83 1 3.59 7.24C3.25 7.57 3 8.1 3 8.7v12c0 1.1.9 2 2 2h12c.83 0 1.54-.5 1.84-1.23l5.02-8.06c.09-.15.16-.34.16-.54v-3z" />
+                        </svg>
+                        {comment.likes}
+                      </button>
+                      <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                        Reply
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar - Related Videos -->
+      <div class="lg:col-span-1">
+        <h3 class="text-lg font-bold mb-4">Recommended</h3>
+        <div class="space-y-4">
+          {
+            relatedVideos.map((relatedVideo) => (
+              <a
+                href={`/video/${relatedVideo.id}`}
+                class="flex gap-2 hover:opacity-80 transition-opacity group"
+              >
+                <div class="relative w-32 h-20 rounded overflow-hidden flex-shrink-0 bg-gray-900">
+                  <img
+                    src={relatedVideo.thumbnail}
+                    alt={relatedVideo.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  />
+                  <div class="absolute bottom-1 right-1 bg-black bg-opacity-80 px-1 py-0.5 rounded text-xs font-medium">
+                    {relatedVideo.duration}
+                  </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-semibold text-sm line-clamp-2 group-hover:text-gray-300">
+                    {relatedVideo.title}
+                  </h4>
+                  <p class="text-xs text-gray-400 mt-1">
+                    {relatedVideo.channel.name}
+                  </p>
+                  <p class="text-xs text-gray-400">
+                    <span>{relatedVideo.views}</span>
+                    <span> • </span>
+                    <span>{relatedVideo.uploadedAt}</span>
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</YouTubeLayout>

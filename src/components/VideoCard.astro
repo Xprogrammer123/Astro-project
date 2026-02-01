@@ -1,0 +1,56 @@
+---
+interface Props {
+  video: {
+    id: string;
+    title: string;
+    thumbnail: string;
+    channel: {
+      name: string;
+      avatar: string;
+    };
+    views: string;
+    uploadedAt: string;
+    duration: string;
+  };
+}
+
+const { video } = Astro.props as Props;
+---
+
+<a href={`/video/${video.id}`} class="group cursor-pointer">
+  <div
+    class="relative mb-2 overflow-hidden rounded-lg bg-gray-900 aspect-video"
+  >
+    <img
+      src={video.thumbnail}
+      alt={video.title}
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+    />
+    <div
+      class="absolute bottom-1 right-1 bg-black bg-opacity-80 px-2 py-0.5 rounded text-xs font-medium text-white"
+    >
+      {video.duration}
+    </div>
+  </div>
+
+  <div class="flex gap-2">
+    <img
+      src={video.channel.avatar}
+      alt={video.channel.name}
+      class="w-9 h-9 rounded-full flex-shrink-0"
+    />
+    <div class="flex-1 min-w-0">
+      <h3
+        class="font-semibold text-sm line-clamp-2 text-gray-100 group-hover:text-gray-200"
+      >
+        {video.title}
+      </h3>
+      <p class="text-xs text-gray-400 line-clamp-1">{video.channel.name}</p>
+      <p class="text-xs text-gray-400">
+        <span>{video.views}</span>
+        <span> • </span>
+        <span>{video.uploadedAt}</span>
+      </p>
+    </div>
+  </div>
+</a>

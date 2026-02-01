@@ -1,11 +1,64 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import YouTubeLayout from "../layouts/YouTubeLayout.astro";
+import VideoCard from "../components/VideoCard.astro";
+import { mockVideos } from "../data/videos";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<YouTubeLayout title="Home - Tube">
+  <!-- Filter Chips -->
+  <div
+    class="sticky top-14 z-40 bg-gray-950 border-b border-gray-800 px-4 py-3"
+  >
+    <div class="flex gap-3 overflow-x-auto pb-2 hide-scrollbar">
+      <button
+        class="px-3 py-1.5 rounded-full bg-white text-black text-sm font-medium whitespace-nowrap hover:bg-gray-200 transition-colors"
+      >
+        All
+      </button>
+      <button
+        class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-medium whitespace-nowrap hover:bg-gray-800 transition-colors"
+      >
+        Web Development
+      </button>
+      <button
+        class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-medium whitespace-nowrap hover:bg-gray-800 transition-colors"
+      >
+        Programming
+      </button>
+      <button
+        class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-medium whitespace-nowrap hover:bg-gray-800 transition-colors"
+      >
+        Design
+      </button>
+      <button
+        class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-medium whitespace-nowrap hover:bg-gray-800 transition-colors"
+      >
+        Tutorial
+      </button>
+      <button
+        class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-medium whitespace-nowrap hover:bg-gray-800 transition-colors"
+      >
+        Coding
+      </button>
+      <button
+        class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-medium whitespace-nowrap hover:bg-gray-800 transition-colors"
+      >
+        JavaScript
+      </button>
+      <button
+        class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm font-medium whitespace-nowrap hover:bg-gray-800 transition-colors"
+      >
+        React
+      </button>
+    </div>
+  </div>
+
+  <!-- Video Grid -->
+  <div class="p-4">
+    <div
+      class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+    >
+      {mockVideos.map((video) => <VideoCard video={video} />)}
+    </div>
+  </div>
+</YouTubeLayout>
